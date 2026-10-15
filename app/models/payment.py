@@ -2,9 +2,15 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 from sqlalchemy import (
-    CheckConstraint, Enum, DateTime,
-    ForeignKey, Integer, JSON, String,
-    Uuid, func,
+    JSON,
+    CheckConstraint,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    String,
+    Uuid,
+    func,
 )
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -19,14 +25,15 @@ class Payment(Base):
         CheckConstraint("discount >= 0", name="ck_payments_discount_non_negative"),
         CheckConstraint(
             "installment_months IS NULL OR installment_months IN (3, 6, 12)",
-            name="ck_payments_installment_months_allowed"
+            name="ck_payments_installment_months_allowed",
         ),
         CheckConstraint(
-            "(method = 'installment' AND installment_months IS NOT NULL) OR (method != 'installment' AND installment_months IS NULL)",
+            "(method = 'installment' AND installment_months IS NOT NULL)" 
+            "OR (method != 'installment' AND installment_months IS NULL)",
             name="ck_payments_method_installment_consistency",
         ),
     )
-    
+
     id: Mapped[UUID] = mapped_column(Uuid, primary_key=True, default=uuid4)
     status: Mapped[PaymentStatus] = mapped_column(
         Enum(
@@ -59,5 +66,6 @@ class Payment(Base):
     schedule: Mapped[list[int] | None] = mapped_column(JSON, nullable=True)
     email: Mapped[str] = mapped_column(String(320), nullable=False, index=True)
     idempotency_key: Mapped[str | None] = mapped_column(String(255), nullable=True, unique=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=func.now())
-    
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )

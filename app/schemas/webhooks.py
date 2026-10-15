@@ -1,6 +1,8 @@
-from typing import Literal 
+from typing import Literal
 from uuid import UUID
+
 from pydantic import BaseModel
+
 from app.models import PaymentStatus
 
 

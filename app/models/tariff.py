@@ -13,7 +13,7 @@ class Tariff(Base):
             name="ck_tariffs_price_positive",
         ),
     )
-    
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     title: Mapped[TariffTitle] = mapped_column(
         Enum(

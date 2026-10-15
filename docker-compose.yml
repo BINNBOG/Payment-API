@@ -23,5 +23,25 @@ services:
       timeout: 5s
       retries: 10
 
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: kvitto-api
+    restart: unless-stopped
+
+    environment:
+      DB_URL: postgresql+asyncpg://postgres:postgres@db:5432/kvitto
+      DB_ECHO: "false"
+      WEBHOOK_SECRET: "12345"
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   postgres_data:
