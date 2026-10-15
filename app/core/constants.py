@@ -1,0 +1,8 @@
+PROMO_CODE = "KVITTO10"
+PROMO_DISCOUNT_PERCENT = 10
+
+ALLOWED_INSTALLMENT_MONTHS = frozenset({
+    3,
+    6,
+    12,
+})
