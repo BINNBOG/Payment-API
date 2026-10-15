@@ -28,7 +28,7 @@ class Payment(Base):
             name="ck_payments_installment_months_allowed",
         ),
         CheckConstraint(
-            "(method = 'installment' AND installment_months IS NOT NULL)" 
+            "(method = 'installment' AND installment_months IS NOT NULL)"
             "OR (method != 'installment' AND installment_months IS NULL)",
             name="ck_payments_method_installment_consistency",
         ),

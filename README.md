@@ -240,10 +240,7 @@ X-Signature: <hex digest>
 import hashlib
 import hmac
 
-body = (
-    b'{"payment_id":"2a842404-5705-47f6-b35b-d0c1f80495e8",'
-    b'"status":"succeeded"}'
-)
+body = b'{"payment_id":"2a842404-5705-47f6-b35b-d0c1f80495e8","status":"succeeded"}'
 
 signature = hmac.new(
     key=b"local-webhook-secret",
